@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <PackageId>Codezerg.FluentHtml</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Codezerg</Authors>
+    <Description>A fluent HTML DSL/view engine for C# that enables type-safe HTML generation</Description>
+    <PackageTags>html;dsl;fluent;view-engine;markup;codezerg</PackageTags>
+    <RepositoryUrl>https://github.com/codezerg/Codezerg.FluentHtml</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>
