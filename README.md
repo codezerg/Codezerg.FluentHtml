@@ -33,7 +33,7 @@ var page = Html.html(
     )
 );
 
-Console.WriteLine(Renderer.Render(page));
+Console.WriteLine(Renderer.RenderPage(page));
 ```
 
 ### Cleaner Syntax with Static Import
@@ -53,7 +53,7 @@ var page = html(
     )
 );
 
-Console.WriteLine(Renderer.Render(page));
+Console.WriteLine(Renderer.RenderPage(page));
 ```
 
 ## Installation
@@ -227,27 +227,32 @@ Html.button(Html.text("Delete"))
     .hx_swap(HxSwap.outerHTML)
 ```
 
-### Pre-built Components
+### Creating Custom Components
 
 ```csharp
-// Use included components
-var page = Components.MyLayout("Home Page",
-    Html.div(
-        Components.NavigationMenu(
-            ("Home", "/"),
-            ("About", "/about"),
-            ("Contact", "/contact")
-        ),
-        Components.Card("Feature", "Description here"),
-        Components.Alert("Success!", "success")
-    )
-);
+// Components are just static methods that return elements
+public static class MyComponents
+{
+    public static Element Card(string title, string content)
+    {
+        return Html.div(
+            Html.h3(Html.text(title)),
+            Html.p(Html.text(content))
+        ).@class("card");
+    }
+    
+    public static Element Alert(string message, string type = "info")
+    {
+        return Html.div(
+            Html.text(message)
+        ).@class($"alert alert-{type}");
+    }
+}
 
-// Form components
-var form = Html.form(
-    Components.FormGroup("Username", "username", "text", "Enter username"),
-    Components.FormGroup("Password", "password", "password"),
-    Html.button(Html.text("Login")).type("submit")
+// Using custom components
+var page = Html.div(
+    MyComponents.Card("Feature", "Description here"),
+    MyComponents.Alert("Success!", "success")
 );
 ```
 
@@ -485,8 +490,14 @@ Html.ol(
 ## Rendering
 
 ```csharp
-// Render to HTML string
-string html = Renderer.Render(node);
+// Render complete HTML page with DOCTYPE
+string html = Renderer.RenderPage(node);
+
+// Render HTML fragment without DOCTYPE
+string html = Renderer.RenderFragment(node);
+
+// Render minified HTML
+string html = Renderer.RenderMinified(node);
 
 // Direct element rendering
 string html = element.Render();
