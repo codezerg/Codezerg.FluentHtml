@@ -2,6 +2,8 @@
 
 A fluent HTML DSL/view engine for C# that enables type-safe HTML generation with a clean, composable API. Features a uniform factory pattern with parameterless tag methods and lowercase fluent attribute chaining. Includes full HTML5 support, htmx integration, and a component system for building reusable UI patterns.
 
+Warning: FluentHtml is a tool, not a religion. Use it where it provides clear value, and stick with HTML where that's simpler.
+
 ## Features
 
 - **Complete HTML5 Support** - All HTML5 elements with strongly-typed classes
