@@ -27,10 +27,12 @@ The library follows three fundamental principles:
 
 ## Basic Usage
 
+The library supports two usage styles - with or without the `Html` prefix:
+
 ```csharp
+// Style 1: With Html prefix (explicit)
 using Codezerg.FluentHtml;
 
-// Create HTML structure
 var page = Html.html(
     Html.head(
         Html.meta().charset("utf-8"),
@@ -39,6 +41,21 @@ var page = Html.html(
     Html.body(
         Html.h1(Html.text("Welcome")).@class("title"),
         Html.p(Html.text("Hello, World!")).id("intro")
+    )
+);
+
+// Style 2: Using static import (cleaner)
+using Codezerg.FluentHtml;
+using static Codezerg.FluentHtml.Html;
+
+var page = html(
+    head(
+        meta().charset("utf-8"),
+        title(text("My Page"))
+    ),
+    body(
+        h1(text("Welcome")).@class("title"),
+        p(text("Hello, World!")).id("intro")
     )
 );
 
@@ -81,11 +98,40 @@ Html.text("Content")  // HTML-encoded text node
 
 ## Usage Examples
 
+### Content Addition Patterns
+
+Content can be added either immediately (via constructor) or later (via extension methods):
+
+```csharp
+using static Codezerg.FluentHtml.Html;
+
+// Method 1: Immediate content via constructor
+var div1 = div(
+    h1(text("Hello")),
+    p(text("World"))
+).@class("container");
+
+// Method 2: Deferred content via extension methods
+var div2 = div()
+    .content(h1().text("Hello"))
+    .content(p().text("World"))
+    .@class("container");
+
+// Method 3: Mixed approach - combining both styles
+var div3 = div(
+    h1().text("Hello")  // Creates h1 then adds text
+).content(
+    p(text("World"))    // Adds p with text later
+).@class("container");
+```
+
 ### Basic HTML Generation
 ```csharp
-var html = Html.div(
-    Html.h1(Html.text("Hello World")).@class("title"),
-    Html.p(Html.text("Welcome to FluentHtml")).id("intro")
+using static Codezerg.FluentHtml.Html;
+
+var html = div(
+    h1(text("Hello World")).@class("title"),
+    p(text("Welcome to FluentHtml")).id("intro")
 ).@class("container");
 ```
 

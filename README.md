@@ -34,6 +34,26 @@ var page = Html.html(
 Console.WriteLine(Renderer.Render(page));
 ```
 
+### Cleaner Syntax with Static Import
+
+```csharp
+using Codezerg.FluentHtml;
+using static Codezerg.FluentHtml.Html;
+
+var page = html(
+    head(
+        meta().charset("utf-8"),
+        title(text("Hello World"))
+    ),
+    body(
+        h1(text("Welcome!")).@class("title"),
+        p(text("This is FluentHtml.")).id("intro")
+    )
+);
+
+Console.WriteLine(Renderer.Render(page));
+```
+
 ## Installation
 
 ```bash
@@ -97,25 +117,54 @@ Html.audio().src("/song.mp3").controls()
 
 ## Usage Examples
 
+### Content Addition Patterns
+
+FluentHtml offers flexible ways to add content to elements:
+
+```csharp
+using static Codezerg.FluentHtml.Html;
+
+// Method 1: Immediate content via constructor
+var div1 = div(
+    h1(text("Hello")),
+    p(text("World"))
+).@class("container");
+
+// Method 2: Deferred content via extension methods
+var div2 = div()
+    .content(h1().text("Hello"))
+    .content(p().text("World"))
+    .@class("container");
+
+// Method 3: Mixed approach
+var div3 = div(
+    h1().text("Hello")  // Creates h1 then adds text
+).content(
+    p(text("World"))    // Adds p with text later
+).@class("container");
+```
+
 ### Basic HTML Structure
 
 ```csharp
-var page = Html.html(
-    Html.head(
-        Html.meta().charset("utf-8"),
-        Html.title(Html.text("My Page")),
-        Html.link().rel("stylesheet").href("/css/style.css")
+using static Codezerg.FluentHtml.Html;
+
+var page = html(
+    head(
+        meta().charset("utf-8"),
+        title(text("My Page")),
+        link().rel("stylesheet").href("/css/style.css")
     ),
-    Html.body(
-        Html.header(
-            Html.nav(/* navigation items */)
+    body(
+        header(
+            nav(/* navigation items */)
         ),
-        Html.main(
-            Html.h1(Html.text("Welcome")),
-            Html.p(Html.text("Content here"))
+        main(
+            h1(text("Welcome")),
+            p(text("Content here"))
         ),
-        Html.footer(
-            Html.p(Html.text("© 2024"))
+        footer(
+            p(text("© 2024"))
         )
     )
 );

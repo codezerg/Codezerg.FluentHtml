@@ -35,6 +35,15 @@ namespace Codezerg.FluentHtml
             return element;
         }
 
+        public static T text<T>(this T element, string content) where T : Element
+        {
+            if (!string.IsNullOrEmpty(content))
+            {
+                element.Children.Add(new TextNode(content));
+            }
+            return element;
+        }
+
 
         // Core attributes
         public static T id<T>(this T element, string value) where T : Element

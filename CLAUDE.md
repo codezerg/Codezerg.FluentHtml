@@ -155,11 +155,49 @@ Tests use xUnit framework and are located in `tests/Codezerg.FluentHtml.Tests/`.
 
 ## Usage Examples
 
-### Basic HTML Generation
+### Usage Styles
+
+The library supports two usage styles - with or without the `Html` prefix:
+
 ```csharp
+// Style 1: With Html prefix (explicit)
 var html = Html.div(
     Html.h1(Html.text("Hello World")).@class("title"),
     Html.p(Html.text("Welcome to FluentHtml")).id("intro")
+).@class("container");
+
+// Style 2: Using static import (cleaner)
+using static Codezerg.FluentHtml.Html;
+
+var html = div(
+    h1(text("Hello World")).@class("title"),
+    p(text("Welcome to FluentHtml")).id("intro")
+).@class("container");
+```
+
+### Content Addition Patterns
+
+Content can be added either immediately (via constructor) or later (via extension methods):
+
+```csharp
+using static Codezerg.FluentHtml.Html;
+
+// Immediate content (via constructor)
+div(
+    h1(text("Hello")),
+    p(text("World"))
+).@class("container");
+
+// Deferred content (via extension methods)
+div()
+    .content(h1().text("Hello"))
+    .content(p().text("World"))
+    .@class("container");
+
+// Mixed approach
+div(
+    h1().text("Hello"),
+    p().text("World")
 ).@class("container");
 ```
 
