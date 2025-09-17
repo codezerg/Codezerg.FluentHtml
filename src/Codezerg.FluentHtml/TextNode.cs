@@ -11,9 +11,9 @@ namespace Codezerg.FluentHtml
             _text = text ?? string.Empty;
         }
 
-        public override string Render(int indent = 0)
+        public override void Render(HtmlWriter writer)
         {
-            return GetIndentation(indent) + WebUtility.HtmlEncode(_text);
+            writer.WriteEncodedText(_text);
         }
     }
 }

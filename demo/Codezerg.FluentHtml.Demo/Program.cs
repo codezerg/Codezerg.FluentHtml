@@ -115,8 +115,8 @@ namespace Codezerg.FluentHtml.Demo
                     Html.div(
                         Html.h1(Html.text("Contact Form")).@class("title"),
                         Html.form(
-                            Components.FormGroup("Name", "name", "text", "Enter your name"),
-                            Components.FormGroup("Email", "email", "email", "Enter your email"),
+                            Components.FormGroup("Name", input().name("name").type("text").placeholder("Enter your name")),
+                            Components.FormGroup("Email", input().name("email").type("email").placeholder("Enter your email")),
                             Html.div(
                                 Html.label(Html.text("Message")).@for("message"),
                                 Html.textarea().name("message").rows(5).cols(40).@class("form-control").id("message")
@@ -170,8 +170,7 @@ namespace Codezerg.FluentHtml.Demo
                                 Html.div(
                                     Components.Card(
                                         product.Name,
-                                        product.Description,
-                                        "Buy Now"
+                                        product.Description
                                     ),
                                     Html.p(Html.text("Price: "), Html.strong(Html.text(product.Price)))
                                         .@class("price-tag")
