@@ -16,6 +16,16 @@ namespace Codezerg.FluentHtml
 
         public static T content<T>(this T element, Node child) where T : Element
         {
+            return element.children(child);
+        }
+
+        public static T content<T>(this T element, params Node[] children) where T : Element
+        {
+            return element.children(children);
+        }
+
+        public static T children<T>(this T element, Node child) where T : Element
+        {
             if (child != null)
             {
                 element.Children.Add(child);
@@ -23,7 +33,7 @@ namespace Codezerg.FluentHtml
             return element;
         }
 
-        public static T content<T>(this T element, params Node[] children) where T : Element
+        public static T children<T>(this T element, params Node[] children) where T : Element
         {
             if (children != null)
             {
